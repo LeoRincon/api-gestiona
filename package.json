@@ -8,7 +8,8 @@
     "start": "node src/index.js",
     "dev": "node --env-file=.env --watch src/index.js",
     "docker": "docker-compose up -d ",
-    "down": "docker-compose down"
+    "down": "docker-compose down",
+    "seed": "node --env-file=.env seed.js"
   },
   "keywords": [],
   "author": "",
