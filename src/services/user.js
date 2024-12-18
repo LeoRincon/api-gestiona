@@ -2,7 +2,7 @@ import { pool } from '../db.js'
 
 export async function getServiceUsers() {
   const client = await pool.connect()
-  pool.query('SELECT * from gestiona.usuario').then(result  => {
+  pool.query('SELECT NOW()').then(result  => {
     console.log(result.rows);
     client.release()
   })
