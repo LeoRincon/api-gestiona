@@ -66,7 +66,7 @@ CREATE TABLE IF NOT EXISTS gestiona.temporada (
     fecha_inicio DATE NOT NULL,
     fecha_fin DATE,
     id_cultivo UUID NOT NULL,
-    novedades_id UUID NOT NULL,
+    novedades_id UUID,
     FOREIGN KEY (id_cultivo) REFERENCES gestiona.cultivo (id) ON DELETE NO ACTION ON UPDATE NO ACTION,
     FOREIGN KEY (novedades_id) REFERENCES gestiona.novedades (id) ON DELETE NO ACTION ON UPDATE NO ACTION
 );
@@ -215,6 +215,9 @@ INSERT INTO gestiona.cultivo (id, nombre_cultivo, tipo_siembra, fecha_inicio, ar
 VALUES 
 ('c1234567-9abc-1234-5678-abc456789def', 'Cultivo de Maíz', 'Maiz', '2024-01-01', 1500, 'd1c3d2b7-5555-48fa-b6a1-abc123def456', 'f1234567-8abc-1234-5678-defabc456789');
 
+INSERT INTO gestiona.cultivo (id, nombre_cultivo, tipo_siembra, fecha_inicio, area_terreno, proyecto_id, id_unidad_medida)
+VALUES ('328ef414-c70e-4266-a92b-7137219302eb','Cafetal 1', 'Café', '2022-05-21', 1200, 'd1c3d2b7-5555-48fa-b6a1-abc123def456', 'f1234567-8abc-1234-5678-defabc456789');
+
 -- Inserciones para gestiona.usuario
 INSERT INTO gestiona.usuario (id, nombre, email, password_hash, fecha_registro) 
 VALUES 
@@ -229,6 +232,11 @@ VALUES
 INSERT INTO gestiona.temporada (id, nombre_temporada, duracion, fecha_inicio, fecha_fin, id_cultivo, novedades_id) 
 VALUES 
 ('d2345678-8def-1234-5678-abc456789abc', 'Temporada Maíz 2024', 120, '2024-01-01', '2024-05-01', 'c1234567-9abc-1234-5678-abc456789def', 'b1234567-8abc-1234-5678-abc456789def');
+
+INSERT INTO gestiona.temporada (id, nombre_temporada, duracion, fecha_inicio, fecha_fin, id_cultivo)
+VALUES (uuid_generate_v4(), 'Primera Temporada', 225, '2022-05-21', '2022-12-31', '328ef414-c70e-4266-a92b-7137219302eb'),
+		(uuid_generate_v4(), 'Segunda Temporada', 365, '2023-01-01', '2023-12-31', '328ef414-c70e-4266-a92b-7137219302eb'),
+		(uuid_generate_v4(), 'Tercera Temporada', 365, '2024-01-01', '2024-12-31', '328ef414-c70e-4266-a92b-7137219302eb');
 
 -- Inserciones para gestiona.categoria
 INSERT INTO gestiona.categoria (id, nombre, descripcion) 
