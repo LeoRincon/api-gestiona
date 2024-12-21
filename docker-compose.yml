@@ -3,30 +3,13 @@ version: '3'
 services:
  myDB:
   image: postgres:17
-  container_name: gestionaDB
+  container_name:
   restart: always
   ports:
    - 5432:5432
   environment:
-   - POSTGRES_USER=dbadmin
-   - POSTGRES_PASSWORD=232423634
-   - POSTGRES_DB=gestiona-db
+   - POSTGRES_USER=
+   - POSTGRES_PASSWORD=
+   - POSTGRES_DB=
   volumes:
    - ./postgres:/var/lib/postgresql/data
-
- pdAdmin:
-  image: dpage/pgadmin4
-  container_name: pgadmin4
-  restart: always
-  depends_on:
-   - myDB
-  ports:
-   - 8080:80
-  environment:
-   - PGADMIN_DEFAULT_EMAIL=dbadmin@google.com
-   - PGADMIN_DEFAULT_PASSWORD=8760932423
-  volumes:
-   - ./pgadmin:/var/lib/pgadmin
-   - ./pgadmin:/certs/server.cert
-   - ./pgadmin:/certs/server.key
-   - ./pgadmin:/pgadmin4/servers.json
