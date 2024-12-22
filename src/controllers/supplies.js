@@ -1,7 +1,6 @@
-import { getAllSuppliesServices } from "../services/supplies.js"
+import { getAllSuppliesServices } from "../services/supplies.js";
 
-export async function getAllSuppliesController (req, res) {
-    const insumos = await getAllSuppliesServices()
-    console.log('controler', insumos)
-    res.json(insumos)
+export async function getSuppliesController(req, res) {
+    const supplies = await getAllSuppliesServices();
+    res.status(201).json(supplies);
 }

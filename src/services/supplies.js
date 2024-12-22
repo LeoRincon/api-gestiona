@@ -1,19 +1,10 @@
-import { pool } from '../db.js';
+import { pgpConnection } from "../db.js";
 
 export async function getAllSuppliesServices() {
   try {
-    const client = await pool.connect();
-    const query = "SELECT * FROM gestiona.insumo;";
-
-    const resultado = await client.query(query);
-
-    client.release();
-
-    console.log("services", resultado.rows);
-
-    return resultado.rows;
+    const supplies = await pgpConnection.manyOrNone('SELECT * FROM gestiona.insumo;')    
+   return supplies;
   } catch (error) {
-    console.error('Error en la conexión a PostgreSQL:', error);
-    throw error;
+    console.error('Error in project service:', error);
   }
 }

@@ -1,9 +1,8 @@
 import { Router } from "express";
-
-import { getAllSuppliesController } from "../controllers/supplies.js";
+import { getSuppliesController } from "../controllers/supplies.js";
 
 const suppliesRouter = Router();
 
-suppliesRouter.get('/supplies', getAllSuppliesController);
+suppliesRouter.get('/', getSuppliesController);
 
 export default suppliesRouter;
