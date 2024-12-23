@@ -3,13 +3,13 @@ version: '3'
 services:
  myDB:
   image: postgres:17
-  container_name:
+  container_name: gestionaDB
   restart: always
   ports:
    - 5432:5432
   environment:
-   - POSTGRES_USER=
-   - POSTGRES_PASSWORD=
-   - POSTGRES_DB=
+   - POSTGRES_USER=dbdbadmin
+   - POSTGRES_PASSWORD=232423634
+   - POSTGRES_DB=gestiona-db
   volumes:
    - ./postgres:/var/lib/postgresql/data
