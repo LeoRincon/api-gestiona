@@ -1,23 +1,11 @@
 import { json } from "express";
 import { validatePartialSeason, validateSeason } from "../schemas/seasons.js";
 
-/**
- * Controller for handling season-related operations.
- */
 export class SeasonController {
     constructor({ seasonService }) {
-        /**
-         * @param {Object} seasonService - Service for handling season data operations.
-         */
         this.seasonService = seasonService;
     }
 
-    /**
-     * Fetches all seasons from the database.
-     * @param {Object} req - Express request object.
-     * @param {Object} res - Express response object.
-     * @returns {Promise<void>} - Responds with a JSON array of all seasons.
-     */
     getAll = async (req, res) => {
         try {
             const seasons = await this.seasonService.getAll();
@@ -28,12 +16,6 @@ export class SeasonController {
         }
     }
 
-    /**
-     * Fetches all seasons by crop ID from the database.
-     * @param {Object} req - Express request object.
-     * @param {Object} res - Express response object.
-     * @returns {Promise<void>} - Responds with a JSON array of seasons for the specified crop ID.
-     */
     getAllByIdCrop = async (req, res) => {
         const { id } = req.query;
         try {
@@ -45,12 +27,6 @@ export class SeasonController {
         }
     }
 
-    /**
-     * Fetches a season by its ID from the database.
-     * @param {Object} req - Express request object.
-     * @param {Object} res - Express response object.
-     * @returns {Promise<void>} - Responds with a JSON object of the season.
-     */
     getById = async (req, res) => {
         const { id } = req.params;
         try {
@@ -62,12 +38,6 @@ export class SeasonController {
         }
     }
 
-    /**
-     * Creates a new season in the database.
-     * @param {Object} req - Express request object.
-     * @param {Object} res - Express response object.
-     * @returns {Promise<void>} - Responds with a JSON object of the newly created season.
-     */
     createSeason = async (req, res) => {
         const season = req.body;
         const result = validateSeason(season);
@@ -84,12 +54,6 @@ export class SeasonController {
         }
     }
 
-    /**
-     * Deletes a season by its ID from the database.
-     * @param {Object} req - Express request object.
-     * @param {Object} res - Express response object.
-     * @returns {Promise<void>} - Responds with a JSON object of the deleted season.
-     */
     deleteSeason = async (req, res) => {
         const { id } = req.params;
         try {
@@ -101,12 +65,6 @@ export class SeasonController {
         }
     }
 
-    /**
-     * Updates a season by its ID in the database.
-     * @param {Object} req - Express request object.
-     * @param {Object} res - Express response object.
-     * @returns {Promise<void>} - Responds with a JSON object of the updated season.
-     */
     updateSeason = async (req, res) => {
         const { id } = req.params;
         const season = req.body;
