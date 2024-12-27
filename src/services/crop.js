@@ -3,7 +3,7 @@ import { pgpConnection } from "../db.js";
 //GET ALL
 export async function getServiceCrops() {
     try {
-        const crops = await pgpConnection.manyOrNone('SELECT * FROM gestiona.cultivo')
+        const crops = await pgpConnection.manyOrNone('select * from gestiona.cultivo')
         return crops
     } catch (error) {
         console.log('GET Database Error: '+error)

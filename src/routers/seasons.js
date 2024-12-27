@@ -8,7 +8,7 @@ export const createSeasonRouter = ({ seasonService }) => {
     const seasonController = new SeasonController({ seasonService });
 
     seasonRouter.get("/crop", seasonController.getAllByIdCrop);
-    seasonRouter.get("/", seasonController.getAll);
+    seasonRouter.get("/seasons", seasonController.getAll);
     seasonRouter.get("/:id", seasonController.getById);
     seasonRouter.patch("/:id", seasonController.updateSeason);
     seasonRouter.delete("/:id", seasonController.deleteSeason);
