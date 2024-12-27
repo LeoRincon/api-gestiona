@@ -1,18 +1,23 @@
-import { Router } from "express";
-import { SeasonController } from "../controllers/seasons.js";
+import { Router } from 'express'
+import * as seasonController from '../controllers/seasons.js'
+import validateID from '../middlewares/validateID.js'
+import { verifyPartialSeason, verifySeason } from '../middlewares/validateSeason.js'
 
-export const createSeasonRouter = ({ seasonService }) => {
-    const seasonRouter = Router();
+const CROP_BASE_URL = '/crop'
+const CROP_ID_PARAM = '/:id'
+const SEASON_BASE_URL = '/seasons'
+const SEASON_ID_PARAM = CROP_ID_PARAM
+const SEASONS_BY_CROP_ID_URL = CROP_BASE_URL + CROP_ID_PARAM + SEASON_BASE_URL
+const SEASON_ID_URL = SEASON_BASE_URL + SEASON_ID_PARAM
 
-    // Initialize the season controller with the provided season service
-    const seasonController = new SeasonController({ seasonService });
+const seasonRouter = Router()
 
-    seasonRouter.get("/crop", seasonController.getAllByIdCrop);
-    seasonRouter.get("/seasons", seasonController.getAll);
-    seasonRouter.get("/:id", seasonController.getById);
-    seasonRouter.patch("/:id", seasonController.updateSeason);
-    seasonRouter.delete("/:id", seasonController.deleteSeason);
-    seasonRouter.post("/", seasonController.createSeason);
+seasonRouter.delete(SEASON_ID_URL, validateID, verifyPartialSeason, seasonController.deleteSeason)
+seasonRouter.get(SEASON_BASE_URL, seasonController.getAll)
+seasonRouter.get(SEASON_ID_URL, validateID, seasonController.getById)
+seasonRouter.get(SEASONS_BY_CROP_ID_URL, validateID, seasonController.getAllByIdCrop)
+seasonRouter.patch(SEASON_ID_URL, validateID, seasonController.updateSeason)
+seasonRouter.post(SEASON_BASE_URL, verifySeason, seasonController.createSeason)
+seasonRouter.put(SEASON_ID_URL, validateID, verifySeason, seasonController.modifySeason)
 
-    return seasonRouter;
-}
+export default seasonRouter
