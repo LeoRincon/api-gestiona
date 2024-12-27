@@ -1,84 +1,90 @@
-import { json } from "express";
-import { validatePartialSeason, validateSeason } from "../schemas/seasons.js";
+import * as seasonService from '../services/season.js'
 
-export class SeasonController {
-    constructor({ seasonService }) {
-        this.seasonService = seasonService;
-    }
+export async function getAll (_req, res) {
+  try {
+    const seasons = await seasonService.getAll()
+    if (!seasons.success) return res.status(404).json({ error: seasons.message })
+    res.json(seasons)
+  } catch (error) {
+    console.log('GET Controller error.', error)
+    res.status(500).json({ error: 'Error fetching information.' })
+  }
+}
 
-    getAll = async (req, res) => {
-        try {
-            const seasons = await this.seasonService.getAll();
-            res.json(seasons);
-        } catch (error) {
-            console.error("Error fetching information from the database.", error.message);
-            res.status(500).send("Error fetching information from the database.");
-        }
-    }
+export async function getAllByIdCrop (req, res) {
+  const { id } = req.params
+  if (!id) return res.status(400).json({ error: 'The crop id is required.' })
+  try {
+    const seasons = await seasonService.getAllByIdCrop({ idCrop: id })
+    if (!seasons.success) return res.status(404).json({ error: seasons.message })
+    res.status(200).json(seasons)
+  } catch (error) {
+    console.log('GET Controller error.', error)
+    res.status(500).json({ error: 'Error fetching information.' })
+  }
+}
 
-    getAllByIdCrop = async (req, res) => {
-        const { id } = req.query;
-        try {
-            const seasons = await this.seasonService.getAllByIdCrop({ idCrop: id });
-            res.json(seasons);
-        } catch (error) {
-            console.error("Error fetching information from the database.", error.message);
-            res.status(500).send("Error fetching information from the database.");
-        }
-    }
+export async function getById (req, res) {
+  const { id } = req.params
+  if (!id) return res.status(400).json({ error: 'The season id is required.' })
+  try {
+    const season = await seasonService.getById({ id })
+    if (!season.success) return res.status(404).json({ error: season.message })
+    res.status(200).json(season)
+  } catch (error) {
+    console.log('Error fetching information.', error.message)
+    res.status(500).json({ error: 'Error fetching information.' })
+  }
+}
 
-    getById = async (req, res) => {
-        const { id } = req.params;
-        try {
-            const season = await this.seasonService.getById({ id });
-            res.json(season);
-        } catch (error) {
-            console.error("Error fetching information from the database.", error.message);
-            res.status(500).send("Error fetching information from the database.");
-        }
-    }
+export async function createSeason (req, res) {
+  const season = req.body
+  if (!season) return res.status(400).json({ error: 'The season is required.' })
+  try {
+    const newSeason = await seasonService.createSeason({ season })
+    res.status(201).json(newSeason)
+  } catch (error) {
+    console.log('Error saving data to the database.', error)
+    res.status(500).json({ error: 'Error saving data.' })
+  }
+}
 
-    createSeason = async (req, res) => {
-        const season = req.body;
-        const result = validateSeason(season);
-        if (!result.success) {
-            return res.status(400).json(result.error);
-        }
-        try {
-            let validateSeason = result.data;
-            const newSeason = await this.seasonService.createSeason({ season: validateSeason });
-            res.json(newSeason);
-        } catch (error) {
-            console.error("Error saving data to the database.", error);
-            res.status(500).send("Error saving data to the database.");
-        }
-    }
+export async function deleteSeason (req, res) {
+  const { id } = req.params
+  if (!id) return res.status(400).json({ error: 'The season id is required.' })
+  try {
+    const result = await seasonService.deleteSeason({ id })
+    res.json(result)
+  } catch (error) {
+    console.log('Error removing data.', error)
+    res.status(500).json({ error: 'Error removing data.' })
+  }
+}
 
-    deleteSeason = async (req, res) => {
-        const { id } = req.params;
-        try {
-            const season = await this.seasonService.deleteSeason({ id });
-            res.json(season);
-        } catch (error) {
-            console.error("Error removing data from the database.", error);
-            res.status(500).send("Error removing data from the database.");
-        }
-    }
+export async function modifySeason (req, res) {
+  const { id } = req.params
+  const season = req.body
+  if (!id) return res.status(400).json({ error: 'The season id is required.' })
+  if (!season) return res.status(400).json({ error: 'The season is required.' })
+  try {
+    const updatedSeason = await seasonService.modifySeason({ id, season })
+    res.json(updatedSeason)
+  } catch (error) {
+    console.log('Error updating data in the database.', error)
+    res.status(500).json({ error: 'Error modifying data.' })
+  }
+}
 
-    updateSeason = async (req, res) => {
-        const { id } = req.params;
-        const season = req.body;
-        const result = validatePartialSeason(season);
-        if (!result.success) {
-            return res.status(400).json({error: result.error});
-        }
-        try {
-            const validatedSeason = result.data;
-            const updatedSeason = await this.seasonService.updateSeason({ id, season: validatedSeason });
-            res.json(updatedSeason);
-        } catch (error) {
-            console.error("Error updating data in the database.", error);
-            res.status(500).send("Error updating data in the database.");
-        }
-    }
+export async function updateSeason (req, res) {
+  const { id } = req.params
+  const season = req.body
+  if (!id) return res.status(400).json({ error: 'The season id is required.' })
+  if (!season) return res.status(400).json({ error: 'The season is required.' })
+  try {
+    const updatedSeason = await seasonService.updateSeason({ id, season })
+    res.json(updatedSeason)
+  } catch (error) {
+    console.log('Error updating data in the database.', error)
+    res.status(500).json({ error: 'Error updating data.' })
+  }
 }
