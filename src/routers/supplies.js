@@ -1,8 +1,12 @@
 import { Router } from "express";
-import { getSuppliesController } from "../controllers/supplies.js";
+import * as suppliesController from "../controllers/supplies.js";
 
 const suppliesRouter = Router();
 
-suppliesRouter.get('/', getSuppliesController);
+suppliesRouter.get('/', suppliesController.getSuppliesController);
+suppliesRouter.get('/:id', suppliesController.getSupplyController);
+suppliesRouter.post('/', suppliesController.postSupplyController);
+suppliesRouter.put('/:id', suppliesController.putSupplyController);
+suppliesRouter.delete('/:id', suppliesController.deleteSupplyController);
 
 export default suppliesRouter;
