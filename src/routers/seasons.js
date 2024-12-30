@@ -1,77 +1,23 @@
-import { Router } from "express";
-import { SeasonController } from "../controllers/seasons.js";
+import { Router } from 'express'
+import * as seasonController from '../controllers/seasons.js'
+import validateID from '../middlewares/validateID.js'
+import { verifyPartialSeason, verifySeason } from '../middlewares/validateSeason.js'
 
-/**
- * Creates a router for handling season-related routes.
- * 
- * @param {Object} dependencies - The dependencies required by the router.
- * @param {Object} dependencies.seasonService - The service used to manage seasons.
- * @returns {Router} The configured router for season routes.
- */
-export const createSeasonRouter = ({ seasonService }) => {
-    const seasonRouter = Router();
+const CROP_BASE_URL = '/crop'
+const CROP_ID_PARAM = '/:id'
+const SEASON_BASE_URL = '/seasons'
+const SEASON_ID_PARAM = CROP_ID_PARAM
+const SEASONS_BY_CROP_ID_URL = CROP_BASE_URL + CROP_ID_PARAM + SEASON_BASE_URL
+const SEASON_ID_URL = SEASON_BASE_URL + SEASON_ID_PARAM
 
-    // Initialize the season controller with the provided season service
-    const seasonController = new SeasonController({ seasonService });
+const seasonRouter = Router()
 
-    /**
-     * Route to get all seasons by crop ID.
-     * @name GET /crop
-     * @function
-     * @memberof module:routers/seasons~createSeasonRouter
-     * @inner
-     */
-    seasonRouter.get("/crop", seasonController.getAllByIdCrop);
+seasonRouter.delete(SEASON_ID_URL, validateID, verifyPartialSeason, seasonController.deleteSeason)
+seasonRouter.get(SEASON_BASE_URL, seasonController.getAll)
+seasonRouter.get(SEASON_ID_URL, validateID, seasonController.getById)
+seasonRouter.get(SEASONS_BY_CROP_ID_URL, validateID, seasonController.getAllByIdCrop)
+seasonRouter.patch(SEASON_ID_URL, validateID, seasonController.updateSeason)
+seasonRouter.post(SEASON_BASE_URL, verifySeason, seasonController.createSeason)
+seasonRouter.put(SEASON_ID_URL, validateID, verifySeason, seasonController.modifySeason)
 
-    /**
-     * Route to get all seasons.
-     * @name GET /
-     * @function
-     * @memberof module:routers/seasons~createSeasonRouter
-     * @inner
-     */
-    seasonRouter.get("/", seasonController.getAll);
-
-    /**
-     * Route to get a season by ID.
-     * @name GET /:id
-     * @function
-     * @memberof module:routers/seasons~createSeasonRouter
-     * @inner
-     * @param {string} id - The ID of the season to retrieve.
-     */
-    seasonRouter.get("/:id", seasonController.getById);
-
-    /**
-     * Route to update a season by ID.
-     * @name PATCH /:id
-     * @function
-     * @memberof module:routers/seasons~createSeasonRouter
-     * @inner
-     * @param {string} id - The ID of the season to update.
-     * @param {Object} season - The season data to update.
-     */
-    seasonRouter.patch("/:id", seasonController.updateSeason);
-
-    /**
-     * Route to delete a season by ID.
-     * @name DELETE /:id
-     * @function
-     * @memberof module:routers/seasons~createSeasonRouter
-     * @inner
-     * @param {string} id - The ID of the season to delete.
-     */
-    seasonRouter.delete("/:id", seasonController.deleteSeason);
-
-    /**
-     * Route to create a new season.
-     * @name POST /
-     * @function
-     * @memberof module:routers/seasons~createSeasonRouter
-     * @inner
-     * @param {Object} season - The season data to create.
-     */
-    seasonRouter.post("/", seasonController.createSeason);
-
-    return seasonRouter;
-}
+export default seasonRouter
