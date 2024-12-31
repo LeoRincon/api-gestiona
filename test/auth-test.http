@@ -1,0 +1,28 @@
+### Login
+POST  http://localhost:3000/api/v1/login
+Content-Type: application/json
+
+{
+  "email": "dwnred@email.com",
+  "password": "123456"
+}
+
+### Logout
+GET http://localhost:3000/api/v1/logout
+
+### create user
+POST http://localhost:3000/api/v1/users
+Content-Type: application/json
+
+{
+  "nombre": "John Doe",
+  "email": "john.doe@email.com",
+  "password": "123456"
+}
+
+### Delete User
+DELETE  http://localhost:3000/api/v1/users/1a4f56e0-bb97-44a6-974b-2e01a178d9b8
+
+### verify session
+GET http://localhost:3000/check-session
+
