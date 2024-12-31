@@ -8,11 +8,11 @@ export async function getCrops(req,res){
         res.status(200).json({success: true, crops:crops})
     } catch (error) {
         console.log('GET controller Error'+error)
-        res.status(400).send('Error fetching information from the database.')
+        res.status(404).send('Error fetching information.')
     }
 }
 
-//GET ONE ID
+//GET ONE ID 
 export async function getCrop(req,res){
     try {
         const {id} = req.params;
@@ -21,7 +21,7 @@ export async function getCrop(req,res){
         res.status(200).json({success: true, crop:crop})
     } catch (error) {
         console.log('GET controller Error'+error)
-        res.status(400).send('Error fetching information from the database.')
+        res.status(404).send('Error fetching information.')
     }
 }
 
@@ -34,7 +34,7 @@ export async function postCrop(req,res){
         res.status(200).json({success: true, crop:crop})
     } catch (error) {
         console.log('POST controller Error'+error)
-        res.status(400).send('Error creating database information')
+        res.status(404).send('Error creating information.')
     }
 }
 
@@ -44,11 +44,11 @@ export async function putCrop(req,res){
         const {id} = req.params;
         const data = req.body;
         const crop = await putServiceCrop(id,data)
-        if(crop.name == "error") throw Error(crop)
+        if(crop.name == "error" || crop.name =="QueryResultError") throw Error(crop)
         res.status(200).json({success: true, crop:crop})
     } catch (error) {
         console.log('PUT controller Error:'+error)
-        res.status(400).send('Error editing database information')
+        res.status(404).send('Error editing information.')
     }
 }
 
@@ -57,10 +57,10 @@ export async function deleteCrop(req,res){
     try {
         const {id} = req.params
         const crop = await deleteServiceCrop(id)
-        if(crop.name == "error") throw Error(crop)
+        if(crop.name == "error" || crop.name =="QueryResultError") throw Error(crop)
         res.status(200).json({success: true, crop:crop})
     } catch (error) {
         console.log('DELETE controller Error: '+error)
-        res.status(400).send('Error deleting information from the database')
+        res.status(404).send('Error deleting information.')
     }
 }
