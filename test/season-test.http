@@ -12,7 +12,7 @@ GET http://localhost:3000/api/v1/seasons/23
 
 
 ### Obtener todas las temporadas por id del cultivo
-GET http://localhost:3000/api/v1/crop/328ef414-c70e-4266-a92b-7137219302eb/seasons
+GET http://localhost:3000/api/v1/crops/328ef414-c70e-4266-a92b-7137219302eb/seasons
 
 ### Obtener todas las temporadas por id del cultivo inexistente
 GET http://localhost:3000/api/v1/crop/c1234567-9abc-1234-5688-abc456789def/seasons
