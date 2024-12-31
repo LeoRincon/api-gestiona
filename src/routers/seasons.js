@@ -3,7 +3,7 @@ import * as seasonController from '../controllers/seasons.js'
 import validateID from '../middlewares/validateID.js'
 import { verifyPartialSeason, verifySeason } from '../middlewares/validateSeason.js'
 
-const CROP_BASE_URL = '/crop'
+const CROP_BASE_URL = '/crops'
 const CROP_ID_PARAM = '/:id'
 const SEASON_BASE_URL = '/seasons'
 const SEASON_ID_PARAM = CROP_ID_PARAM

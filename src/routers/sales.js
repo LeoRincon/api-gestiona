@@ -1,14 +1,11 @@
-import { Router } from "express";
-import { getAllsale ,getUnit ,postSale , deleteSale, putSale} from "../controllers/saleController.js";
+import { Router } from 'express'
+import { getAllsale, postSale, deleteSale, putSale } from '../controllers/saleController.js'
 
-const saleRouter = Router();
+const saleRouter = Router()
 
-saleRouter.get('/sale',getAllsale)
-saleRouter.get('/unit',getUnit)
-saleRouter.post('/sale',postSale)
-saleRouter.put('/sale/:id',putSale)
-saleRouter.delete('/sale/:id',deleteSale)
+saleRouter.get('/sales', getAllsale)
+saleRouter.post('/sales', postSale)
+saleRouter.put('/sales/:id', putSale)
+saleRouter.delete('/sales/:id', deleteSale)
 
-
-
-export default saleRouter;
+export default saleRouter
