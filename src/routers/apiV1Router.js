@@ -8,6 +8,7 @@ import saleRouter from './sales.js';
 import seasonRouter from './seasons.js';
 import userRouters from './users.js';
 import projectRouters from './project.js';
+import unitMeasurementRouters from './unitMeasurement.js';
 import activityManagementRouters from './activityManagement.js';
 import authRouters from './authRouters.js';
 
@@ -26,5 +27,7 @@ apiV1Router.use(APIV1, expensesRouters);
 apiV1Router.use(APIV1, activityManagementRouters);
 apiV1Router.use(APIV1, userRouters);
 apiV1Router.use(APIV1, projectRouters);
+apiV1Router.use(APIV1, unitMeasurementRouters);
+
 
 export default apiV1Router;
