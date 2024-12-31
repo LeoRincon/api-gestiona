@@ -1,6 +1,6 @@
 import { Router } from 'express';
-import suppliesRouters from "./supplies.js";
-import expensesRouters from "./expenses.js";
+import suppliesRouters from './supplies.js';
+import expensesRouters from './expenses.js';
 import activityRouter from './activity.js';
 import cropRouters from './crop.js';
 import newsRouters from './new.js';
@@ -8,6 +8,7 @@ import saleRouter from './sales.js';
 import seasonRouter from './seasons.js';
 import userRouters from './users.js';
 import projectRouters from './project.js';
+import activityRouters from './activityManagement.js';
 
 const apiV1Router = Router();
 
@@ -22,5 +23,6 @@ apiV1Router.use(APIV1, userRouters);
 apiV1Router.use(`${APIV1}/supplies`, suppliesRouters);
 apiV1Router.use(`${APIV1}/expenses`, expensesRouters);
 apiV1Router.use(APIV1, projectRouters);
+apiV1Router.use(APIV1, activityRouters);
 
 export default apiV1Router;
