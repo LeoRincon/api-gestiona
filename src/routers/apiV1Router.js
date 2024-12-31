@@ -8,6 +8,7 @@ import saleRouter from './sales.js';
 import seasonRouter from './seasons.js';
 import userRouters from './users.js';
 import projectRouters from './project.js';
+import unitMeasurementRouters from './unitMeasurement.js';
 
 const apiV1Router = Router();
 
@@ -22,5 +23,7 @@ apiV1Router.use(APIV1, userRouters);
 apiV1Router.use(`${APIV1}/supplies`, suppliesRouters);
 apiV1Router.use(`${APIV1}/expenses`, expensesRouters);
 apiV1Router.use(APIV1, projectRouters);
+apiV1Router.use(APIV1, unitMeasurementRouters);
+
 
 export default apiV1Router;
