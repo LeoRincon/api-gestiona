@@ -1,0 +1,35 @@
+### Obtener todos los datos
+GET  http://localhost:3000/api/v1/users-has
+
+### Obtener por id
+GET  http://localhost:3000/api/v1/users-has/7a284d8c-e241-4029-9590-beb12de3ccb9
+
+### Obtener por proyecto id
+GET  http://localhost:3000/api/v1/projects/d1c3d2b7-5555-48fa-b6a1-abc123def456/users-has
+
+### Obtener por usuario id
+GET  http://localhost:3000/api/v1/users/418b748c-e511-46b2-8f6c-6e9551093cf5/users-has
+
+
+### Crear un registro
+POST  http://localhost:3000/api/v1/users-has
+Content-Type: application/json
+
+{
+  "usuario_id": "418b748c-e511-46b2-8f6c-6e9551093cf5",
+  "proyecto_id": "a698c1c7-3d66-46f1-900a-3dcc5358bf7a",
+  "id_rol": "e9012345-8abc-1234-5678-abc456789abc"
+}
+
+### Delete por id
+DELETE  http://localhost:3000/api/v1/users-has/721789c9-64f4-48e1-9110-3e769ded558b
+
+### Update por id
+PUT http://localhost:3000/api/v1/users-has/7a284d8c-e241-4029-9590-beb12de3ccb9
+Content-Type: application/json
+
+{
+  "usuario_id": "418b748c-e511-46b2-8f6c-6e9551093cf5",
+  "proyecto_id": "d1c3d2b7-5555-48fa-b6a1-abc123def456",
+  "id_rol": "e0ed538f-0c33-4cbe-835c-fb2366f3f01d"
+}
