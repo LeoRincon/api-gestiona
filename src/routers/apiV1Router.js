@@ -11,6 +11,7 @@ import projectRouters from './project.js';
 import unitMeasurementRouters from './unitMeasurement.js';
 import activityManagementRouters from './activityManagement.js';
 import authRouters from './authRouters.js';
+import userHasRouters from './userHas.js';
 
 const apiV1Router = Router();
 
@@ -26,8 +27,8 @@ apiV1Router.use(APIV1, suppliesRouters);
 apiV1Router.use(APIV1, expensesRouters);
 apiV1Router.use(APIV1, activityManagementRouters);
 apiV1Router.use(APIV1, userRouters);
+apiV1Router.use(APIV1, userHasRouters);
 apiV1Router.use(APIV1, projectRouters);
 apiV1Router.use(APIV1, unitMeasurementRouters);
-
 
 export default apiV1Router;
