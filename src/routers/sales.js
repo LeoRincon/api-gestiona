@@ -1,13 +1,15 @@
 import { Router } from "express";
-import { getAllsale ,getUnit ,postSale , deleteSale, putSale} from "../controllers/saleController.js";
+import { getAllsale ,getSale , postSale , deleteSale, putSale} from "../controllers/saleController.js";
+import validateID from '../middlewares/validateID.js'
+import { verifySale} from '../middlewares/validateSale.js'
 
 const saleRouter = Router();
 
 saleRouter.get('/sale',getAllsale)
-saleRouter.get('/unit',getUnit)
-saleRouter.post('/sale',postSale)
-saleRouter.put('/sale/:id',putSale)
-saleRouter.delete('/sale/:id',deleteSale)
+saleRouter.get('/sale/:id',validateID,getSale)
+saleRouter.post('/sale',verifySale,postSale)
+saleRouter.put('/sale/:id',validateID,verifySale,putSale)
+saleRouter.delete('/sale/:id',validateID,deleteSale)
 
 
 
