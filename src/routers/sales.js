@@ -3,14 +3,14 @@ import { getAllsale ,getSale , postSale , deleteSale, putSale} from "../controll
 import validateID from '../middlewares/validateID.js'
 import { verifySale} from '../middlewares/validateSale.js'
 
-const saleRouter = Router();
+const saleRouter = Router()
 
-saleRouter.get('/sale',getAllsale)
-saleRouter.get('/sale/:id',validateID,getSale)
-saleRouter.post('/sale',verifySale,postSale)
-saleRouter.put('/sale/:id',validateID,verifySale,putSale)
-saleRouter.delete('/sale/:id',validateID,deleteSale)
+saleRouter.get('/sales',getAllsale)
+saleRouter.get('/sales/:id',validateID,getSale)
+saleRouter.post('/sales',verifySale,postSale)
+saleRouter.put('/sales/:id',validateID,verifySale,putSale)
+saleRouter.delete('/sales/:id',validateID,deleteSale)
 
 
 
-export default saleRouter;
+export default saleRouter

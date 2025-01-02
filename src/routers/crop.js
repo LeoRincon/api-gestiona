@@ -1,13 +1,14 @@
-import { Router } from "express";
-import { getCrops, getCrop, postCrop, putCrop, deleteCrop} from "../controllers/crop.js"; 
-
+import { Router } from 'express';
+import { getCrops, getCrop, postCrop, putCrop, deleteCrop} from '../controllers/crop.js'; 
+import validateID from '../middlewares/validateID.js';
+import { verifyCrop } from '../middlewares/validateCrop.js';
 
 const cropRouters = Router()
 
-cropRouters.get('/crop',getCrops)
-cropRouters.get('/crop/:id',getCrop)
-cropRouters.post('/crop',postCrop)
-cropRouters.put('/crop/:id',putCrop)
-cropRouters.delete('/crop/:id',deleteCrop)
+cropRouters.get('/crops',getCrops)
+cropRouters.get('/crops/:id',validateID,getCrop)
+cropRouters.post('/crops',verifyCrop,postCrop)
+cropRouters.put('/crops/:id',validateID,verifyCrop,putCrop)
+cropRouters.delete('/crops/:id',validateID,deleteCrop)
 
-export default cropRouters;
+export default cropRouters

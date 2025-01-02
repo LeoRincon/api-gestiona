@@ -1,15 +1,14 @@
-import { Router } from "express";
-import { getActivities, getActivity,postActivity, deleteActivity, putActivity } from "../controllers/activity.js";
+import { Router } from 'express'
+import { getActivities, getActivity, postActivity, deleteActivity, putActivity } from '../controllers/activity.js'
+import validateID from '../middlewares/validateID.js'
+import { verifyActivity } from '../middlewares/validateActivity.js'
 
-const activityRouter = Router();
+const activityRouter = Router()
 
-activityRouter.get('/activity',getActivities)
-activityRouter.get('/activity/:id',getActivity)
-activityRouter.post('/activity',postActivity)
-activityRouter.put('/activity/:id',putActivity)
-activityRouter.delete('/activity/:id',deleteActivity)
+activityRouter.get('/activities', getActivities)
+activityRouter.get('/activities/:id', validateID, getActivity)
+activityRouter.post('/activities', verifyActivity, postActivity)
+activityRouter.put('/activities/:id', validateID, verifyActivity, putActivity)
+activityRouter.delete('/activities/:id', validateID, deleteActivity)
 
-
-
-export default activityRouter;
-
+export default activityRouter

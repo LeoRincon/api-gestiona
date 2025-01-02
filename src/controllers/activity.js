@@ -6,10 +6,10 @@ export async function getActivities(req, res){
     try {
         const activities = await getServiceActivities()
         if(activities.name == "error") throw Error(activity)
-        res.status(200).json({success:true,activities})
+        res.status(200).json({success:true,activities:activities})
     } catch (error) {
         console.log('GET controller Error'+error)
-        res.status(400).send('Error fetching information from the database.')
+        res.status(404).send('Error fetching information.')
     }
 }
 
@@ -19,10 +19,10 @@ export async function getActivity(req,res) {
         const {id} = req.params; 
         const activity = await getServiceActivity(id)
         if(activity.name == "error") throw Error(activity)
-        res.status(200).json({success:true,activity})
+        res.status(200).json({success:true,activity:activity})
     } catch (error) {
         console.log('GET controller Error'+error)
-        res.status(400).send('Error fetching information from the database.')
+        res.status(404).send('Error fetching information.')
     }
 } 
 
@@ -32,10 +32,10 @@ export async function postActivity(req,res) {
         const data = req.body;
         const activity = await postServiceActivity(data)
         if(activity.name == "error") throw Error(activity)
-        res.status(200).json({success:true,activity})
+        res.status(201).json({success:true,activity:activity})
     } catch (error) {
         console.log('POST controller Error'+error)
-        res.status(400).send('Error creating database information')
+        res.status(404).send('Error creating information.')
     }
 }
 
@@ -45,11 +45,11 @@ export async function putActivity(req,res) {
         const {id} = req.params;
         const data = req.body;
         const activity = await putServiceActivity(id,data)
-        if(activity.name == "error") throw Error(activity)
-        res.status(200).json({success:true,activity})
+        if(activity.name == "error" || activity.name =="QueryResultError") throw Error(activity)
+        res.status(200).json({success:true,activity:activity})
     } catch (error) {
         console.log('PUT controller Error:'+error)
-        res.status(400).send('Error editing database information')
+        res.status(404).send('Error editing information.')
     }
 }
 
@@ -59,11 +59,11 @@ export async function deleteActivity(req,res) {
         const {id} = req.params;
         const activity = await deleteServiceActivity(id)
         console.log(typeof activity,activity)
-        if(activity.name == "error") throw Error(activity)
-        res.status(200).json({success:true,activity})
+        if(activity.name == "error" || activity.name =="QueryResultError") throw Error(activity)
+        res.status(200).json({success:true,activity:activity})
     } catch (error) {
         console.log('DELETE controller error: '+error)
-        res.status(400).send('Error deleting information from the database')
+        res.status(404).send('Error deleting information.')
     }
 }
 
