@@ -5,10 +5,10 @@ import { verifyExpenses } from "../middlewares/ValidateExpenses.js";
 
 const expensesRouter = Router();
 
-expensesRouter.get('/', expensesController.getAllexpensesController);
-expensesRouter.get('/:id', validateID, expensesController.getExpenseController);
-expensesRouter.post('/', verifyExpenses, expensesController.postExpenseController);
-expensesRouter.put('/:id', validateID, verifyExpenses, expensesController.putExpenseController);
-expensesRouter.delete('/:id', validateID, expensesController.deleteExpenseController);
+expensesRouter.get('/expenses', expensesController.getAllexpensesController);
+expensesRouter.get('/expenses/:id', validateID, expensesController.getExpenseController);
+expensesRouter.post('/expenses', verifyExpenses, expensesController.postExpenseController);
+expensesRouter.put('/expenses/:id', validateID, verifyExpenses, expensesController.putExpenseController);
+expensesRouter.delete('/expenses/:id', validateID, expensesController.deleteExpenseController);
 
 export default expensesRouter;
