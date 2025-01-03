@@ -1,4 +1,4 @@
-import { getServiceAllsale,getServiceUnit,postServiceSale, deleteServiceSale, putServiceSale} from "../services/saleService.js";
+import { getServiceAllsale,postServiceSale, deleteServiceSale, putServiceSale, getServiceSale} from "../services/saleService.js";
 
 //GET all sales
 export async function getAllsale(req, res){
@@ -11,16 +11,20 @@ export async function getAllsale(req, res){
         res.status(400).send('Error fetching information from the database.')
     }
 }
-export async function getUnit(req, res){
-  try {
-    const sale = await getServiceUnit()          
-    res.status(200).json({success:true,sale})
 
-  } catch (error) {
-      console.log('GET controller Error'+error)
-      res.status(400).send('Error fetching information from the database.')
-  }
+//GET  ID
+export async function getSale(req,res) {
+    try {
+        const {id} = req.params; 
+        const sale = await getServiceSale(id)
+        if(activity.name == "error") throw Error(sale)
+        res.status(200).json({success:true,sale:sale})
+    } catch (error) {
+        console.log('GET controller Error'+error)
+        res.status(404).send('Error fetching information.')
+    }
 }
+
 
 
 //POST
