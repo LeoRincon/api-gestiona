@@ -1,11 +1,16 @@
-import { Router } from 'express'
-import { getAllsale, postSale, deleteSale, putSale } from '../controllers/saleController.js'
+import { Router } from "express";
+import { getAllsale ,getSale , postSale , deleteSale, putSale} from "../controllers/saleController.js";
+import validateID from '../middlewares/validateID.js'
+import { verifySale} from '../middlewares/validateSale.js'
 
 const saleRouter = Router()
 
-saleRouter.get('/sales', getAllsale)
-saleRouter.post('/sales', postSale)
-saleRouter.put('/sales/:id', putSale)
-saleRouter.delete('/sales/:id', deleteSale)
+saleRouter.get('/sales',getAllsale)
+saleRouter.get('/sales/:id',validateID,getSale)
+saleRouter.post('/sales',verifySale,postSale)
+saleRouter.put('/sales/:id',validateID,verifySale,putSale)
+saleRouter.delete('/sales/:id',validateID,deleteSale)
+
+
 
 export default saleRouter
