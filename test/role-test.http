@@ -1,0 +1,32 @@
+### Get all roles
+GET http://localhost:3000/api/v1/roles
+
+### Get role by id
+GET http://localhost:3000/api/v1/roles/e9012345-8abc-1234-5678-abc456789abc
+
+### Get role by id erroneo
+GET http://localhost:3000/api/v1/roles/23
+
+### Get role by id inexistente
+GET http://localhost:3000/api/v1/roles/e9012345-8abc-1234-5678-abc456787abc
+
+### Create role
+POST http://localhost:3000/api/v1/roles
+Content-Type: application/json
+
+{
+  "nombre": "otro rol",
+  "descripcion": "un rol de prueba"
+}
+
+### Update role
+PUT http://localhost:3000/api/v1/roles/5e815e6d-2106-445d-90e3-5519d8822f86
+Content-Type: application/json
+
+{
+  "nombre": "otro rol",
+  "descripcion": "un rol de prueba Modificado"
+}
+
+### Delete role
+DELETE http://localhost:3000/api/v1/roles/c467abfd-788e-4083-a4e0-e5ec8f7bc671

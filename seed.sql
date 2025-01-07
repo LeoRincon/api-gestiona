@@ -192,6 +192,7 @@ CREATE TABLE IF NOT EXISTS gestiona.venta (
     id_temporada UUID NOT NULL,
     observaciones TEXT,
     id_unidad_medida UUID NOT NULL,
+    precio_unitario FLOAT NOT NULL,
     FOREIGN KEY (id_temporada) REFERENCES gestiona.temporada (id) ON DELETE NO ACTION ON UPDATE NO ACTION,
     FOREIGN KEY (id_unidad_medida) REFERENCES gestiona.unidad_medida (id) ON DELETE NO ACTION ON UPDATE NO ACTION
 );
@@ -287,6 +288,6 @@ VALUES
 ('a1234567-8abc-1234-5678-abc456789def', 500.0, '2024-05-01', 'd2345678-8def-1234-5678-abc456789abc', 'e2345678-9def-1234-5678-abc456789012');
 
 -- Inserciones para gestiona.venta
-INSERT INTO gestiona.venta (id, cantidad_vendida, precio_total, fecha_venta, id_temporada, observaciones, id_unidad_medida) 
+INSERT INTO gestiona.venta (id, cantidad_vendida, precio_total, fecha_venta, id_temporada, observaciones, id_unidad_medida, precio_unitario) 
 VALUES 
-('b2345678-8def-1234-5678-abc456789abc', 400.0, 2000.0, '2024-06-01', 'd2345678-8def-1234-5678-abc456789abc', 'Venta exitosa', 'e2345678-9def-1234-5678-abc456789012');
+('b2345678-8def-1234-5678-abc456789abc', 400.0, 2000.0, '2024-06-01', 'd2345678-8def-1234-5678-abc456789abc', 'Venta exitosa', 'e2345678-9def-1234-5678-abc456789012', 100);
