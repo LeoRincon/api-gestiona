@@ -12,6 +12,7 @@ import unitMeasurementRouters from './unitMeasurement.js';
 import activityManagementRouters from './activityManagement.js';
 import authRouters from './authRouters.js';
 import categoryRouters from './category.js';
+import roleRouters from './roles.js';
 import productRouter from './product.js';
 
 const apiV1Router = Router();
@@ -31,6 +32,7 @@ apiV1Router.use(APIV1, userRouters);
 apiV1Router.use(APIV1, projectRouters);
 apiV1Router.use(APIV1, unitMeasurementRouters);
 apiV1Router.use(APIV1, categoryRouters);
+apiV1Router.use(APIV1, roleRouters)
 apiV1Router.use(APIV1, productRouter);
 
 export default apiV1Router;
