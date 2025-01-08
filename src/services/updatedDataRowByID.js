@@ -1,12 +1,6 @@
 import { pgpConnection } from '../db.js';
 
 export async function updatedDataRowByID(id, data, table) {
- console.log('🇨🇴🚨 => updatedDataRowByID => id:', id);
-
- console.log('🇨🇴🚨 => updatedDataRowByID => data:', data);
-
- console.log('🇨🇴🚨 => updatedDataRowByID => table:', table);
-
  if (!id || !data || typeof data !== 'object') {
   throw new Error('Both id and data (as an object) are required');
  }
