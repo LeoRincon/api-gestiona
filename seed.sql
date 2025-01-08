@@ -203,7 +203,8 @@ CREATE TABLE IF NOT EXISTS gestiona.venta (
 
 -- Inserciones para gestiona.proyecto
 INSERT INTO gestiona.proyecto (id, nombre_proyecto) 
-VALUES ('d1c3d2b7-5555-48fa-b6a1-abc123def456', 'Proyecto Sabana');
+VALUES ('d1c3d2b7-5555-48fa-b6a1-abc123def456', 'Proyecto Sabana'),
+('a698c1c7-3d66-46f1-900a-3dcc5358bf7a', 'Proyecto Bosque');
 
 -- Inserciones para gestiona.unidad_medida
 INSERT INTO gestiona.unidad_medida (id, unidad, descripcion) 
@@ -222,7 +223,8 @@ VALUES ('328ef414-c70e-4266-a92b-7137219302eb','Cafetal 1', 'Café', '2022-05-21
 -- Inserciones para gestiona.usuario
 INSERT INTO gestiona.usuario (id, nombre, email, password_hash, fecha_registro) 
 VALUES 
-('a1234567-8def-1234-5678-abc123def456', 'Juan Pérez', 'juan.perez@example.com', 'hashed_password_example', '2024-11-18 10:00:00');
+('a1234567-8def-1234-5678-abc123def456', 'Juan Pérez', 'juan.perez@example.com', 'hashed_password_example', '2024-11-18 10:00:00'),
+('418b748c-e511-46b2-8f6c-6e9551093cf5', 'John Doe', 'john.doe@email.com', '2b$10$joo8ZQyEoH77CD1RyidIE.kN8tPDrbZAQyAyvcUzfpiZA519SvKWm', '2024-12-31 18:52:03.426777');
 
 -- Inserciones para gestiona.novedades
 INSERT INTO gestiona.novedades (id, fecha, titulo, descripcion) 
@@ -272,12 +274,13 @@ VALUES
 -- Inserciones para gestiona.rol
 INSERT INTO gestiona.rol (id, nombre, descripcion) 
 VALUES 
-('e9012345-8abc-1234-5678-abc456789abc', 'Administrador', 'Gestiona el proyecto');
+('e9012345-8abc-1234-5678-abc456789abc', 'Administrador', 'Gestiona el proyecto'), ('e0ed538f-0c33-4cbe-835c-fb2366f3f01d','Delegado', 'Gestiona el proyecto con acceso limitado');
 
 -- Inserciones para gestiona.usuario_has
 INSERT INTO gestiona.usuario_has (id, usuario_id, proyecto_id, id_rol) 
 VALUES 
-('f0123456-8def-1234-5678-abc456789abc', 'a1234567-8def-1234-5678-abc123def456', 'd1c3d2b7-5555-48fa-b6a1-abc123def456', 'e9012345-8abc-1234-5678-abc456789abc');
+('f0123456-8def-1234-5678-abc456789abc', 'a1234567-8def-1234-5678-abc123def456', 'd1c3d2b7-5555-48fa-b6a1-abc123def456', 'e9012345-8abc-1234-5678-abc456789abc'),
+('155280f4-7ae0-4bc8-b9da-ef4327929a5f', '418b748c-e511-46b2-8f6c-6e9551093cf5','a698c1c7-3d66-46f1-900a-3dcc5358bf7a', 'e9012345-8abc-1234-5678-abc456789abc' );
 
 -- Inserciones para gestiona.producto
 INSERT INTO gestiona.producto (id, cantidad_recolectada, fecha_recoleccion, id_temporada, id_unidad_medida) 

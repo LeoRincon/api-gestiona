@@ -1,0 +1,13 @@
+### Get all projects
+GET http://localhost:3000/api/v1/projects
+
+### Create Project
+POST http://localhost:3000/api/v1/projects
+Content-Type: application/json
+
+{
+  "nombre_proyecto": "Proyecto Bosque"
+}
+
+### Delete project
+DELETE http://localhost:3000/api/v1/projects/9c5bef66-a4c3-4b6c-b30f-ea1f2e8c032f
