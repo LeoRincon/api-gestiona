@@ -45,8 +45,6 @@ export async function createServiceCategory(data) {
 }
 
 export async function deleteServiceCategory(id) {
- console.log('🇨🇴🚨 => deleteServiceCategory => id:', id);
-
  if (!id) {
   throw new Error('Id is required');
  }
