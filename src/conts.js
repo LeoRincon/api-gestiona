@@ -1,0 +1,17 @@
+export const TABLE = {
+ activitiesManagements: 'gestiona.gestion_actividades',
+ activity: 'gestiona.actividad',
+ category: 'gestiona.categoria',
+ crop: 'gestiona.cultivo',
+ expenses: 'gestiona.gasto',
+ news: 'gestiona.novedades',
+ product: 'gestiona.producto',
+ project: 'gestiona.proyecto',
+ role: 'gestiona.rol',
+ sale: 'gestiona.venta',
+ season: 'gestiona.temporada',
+ supplies: 'gestiona.insumo',
+ unitMeasurement: 'gestiona.unidad_medida',
+ user: 'gestiona.usuario',
+ userHas: 'gestiona.usuario_has',
+};
