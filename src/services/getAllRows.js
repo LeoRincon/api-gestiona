@@ -1,6 +1,8 @@
 import { pgpConnection } from '../db.js';
 
 export async function getAllRows(table) {
+ console.log('🇨🇴🚨 => getAllRows => table:', table);
+
  if (!table || typeof table !== 'string') {
   throw new Error('table is required');
  }
