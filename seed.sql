@@ -8,7 +8,7 @@ CREATE SCHEMA IF NOT EXISTS gestiona;
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS gestiona.proyecto (
     id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
-    nombre_proyecto VARCHAR(100) NOT NULL
+    nombre VARCHAR(100) NOT NULL UNIQUE
 );
 
 -- -----------------------------------------------------
@@ -16,7 +16,7 @@ CREATE TABLE IF NOT EXISTS gestiona.proyecto (
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS gestiona.unidad_medida (
     id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
-    unidad VARCHAR(50) NOT NULL UNIQUE,
+    nombre VARCHAR(50) NOT NULL UNIQUE,
     descripcion VARCHAR(45) NOT NULL
 );
 
@@ -25,7 +25,7 @@ CREATE TABLE IF NOT EXISTS gestiona.unidad_medida (
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS gestiona.cultivo (
     id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
-    nombre_cultivo VARCHAR(100) NOT NULL,
+    nombre VARCHAR(100) NOT NULL UNIQUE,
     tipo_siembra VARCHAR(100) NOT NULL,
     fecha_inicio DATE NOT NULL,
     area_terreno FLOAT NOT NULL,
@@ -52,7 +52,7 @@ CREATE TABLE IF NOT EXISTS gestiona.usuario (
 CREATE TABLE IF NOT EXISTS gestiona.novedades (
     id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
     fecha TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    titulo VARCHAR(255) NOT NULL,
+    nombre VARCHAR(255) NOT NULL,
     descripcion TEXT NOT NULL
 );
 
@@ -61,7 +61,7 @@ CREATE TABLE IF NOT EXISTS gestiona.novedades (
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS gestiona.temporada (
     id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
-    nombre_temporada VARCHAR(100) NOT NULL,
+    nombre VARCHAR(100) NOT NULL,
     duracion INT NOT NULL,
     fecha_inicio DATE NOT NULL,
     fecha_fin DATE,
@@ -105,10 +105,10 @@ CREATE TABLE IF NOT EXISTS gestiona.inventario (
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS gestiona.insumo (
     id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
-    nombre_insumo VARCHAR(100) NOT NULL,
+    nombre VARCHAR(100) NOT NULL,
     cantidad_disponible FLOAT NOT NULL,
     fecha_ingreso DATE NOT NULL,
-    precio_insumo DOUBLE PRECISION NOT NULL,
+    precio DOUBLE PRECISION NOT NULL,
     id_inventario UUID NOT NULL,
     id_categoria UUID NOT NULL,
     id_unidad_medida UUID NOT NULL,
@@ -173,6 +173,7 @@ CREATE TABLE IF NOT EXISTS gestiona.usuario_has (
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS gestiona.producto (
     id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+    nombre VARCHAR(100) NOT NULL,
     cantidad_recolectada FLOAT NOT NULL,
     fecha_recoleccion DATE NOT NULL,
     id_temporada UUID NOT NULL,
@@ -202,22 +203,22 @@ CREATE TABLE IF NOT EXISTS gestiona.venta (
 
 
 -- Inserciones para gestiona.proyecto
-INSERT INTO gestiona.proyecto (id, nombre_proyecto) 
+INSERT INTO gestiona.proyecto (id, nombre) 
 VALUES ('d1c3d2b7-5555-48fa-b6a1-abc123def456', 'Proyecto Sabana'),
 ('a698c1c7-3d66-46f1-900a-3dcc5358bf7a', 'Proyecto Bosque');
 
 -- Inserciones para gestiona.unidad_medida
-INSERT INTO gestiona.unidad_medida (id, unidad, descripcion) 
+INSERT INTO gestiona.unidad_medida (id, nombre, descripcion) 
 VALUES 
 ('f1234567-8abc-1234-5678-defabc456789', 'mt2', 'Unidad de medida para terrenos'),
 ('e2345678-9def-1234-5678-abc456789012', 'cm3', 'Unidad de medida para liquidos');
 
 -- Inserciones para gestiona.cultivo
-INSERT INTO gestiona.cultivo (id, nombre_cultivo, tipo_siembra, fecha_inicio, area_terreno, proyecto_id, id_unidad_medida) 
+INSERT INTO gestiona.cultivo (id, nombre, tipo_siembra, fecha_inicio, area_terreno, proyecto_id, id_unidad_medida) 
 VALUES 
 ('c1234567-9abc-1234-5678-abc456789def', 'Cultivo de Maíz', 'Maiz', '2024-01-01', 1500, 'd1c3d2b7-5555-48fa-b6a1-abc123def456', 'f1234567-8abc-1234-5678-defabc456789');
 
-INSERT INTO gestiona.cultivo (id, nombre_cultivo, tipo_siembra, fecha_inicio, area_terreno, proyecto_id, id_unidad_medida)
+INSERT INTO gestiona.cultivo (id, nombre, tipo_siembra, fecha_inicio, area_terreno, proyecto_id, id_unidad_medida)
 VALUES ('328ef414-c70e-4266-a92b-7137219302eb','Cafetal 1', 'Café', '2022-05-21', 1200, 'd1c3d2b7-5555-48fa-b6a1-abc123def456', 'f1234567-8abc-1234-5678-defabc456789');
 
 -- Inserciones para gestiona.usuario
@@ -227,16 +228,16 @@ VALUES
 ('418b748c-e511-46b2-8f6c-6e9551093cf5', 'John Doe', 'john.doe@email.com', '2b$10$joo8ZQyEoH77CD1RyidIE.kN8tPDrbZAQyAyvcUzfpiZA519SvKWm', '2024-12-31 18:52:03.426777');
 
 -- Inserciones para gestiona.novedades
-INSERT INTO gestiona.novedades (id, fecha, titulo, descripcion) 
+INSERT INTO gestiona.novedades (id, fecha, nombre, descripcion) 
 VALUES 
 ('b1234567-8abc-1234-5678-abc456789def', '2024-11-18 10:00:00', 'Gasto adicional', 'El cultivo tuvo problemas y se agrego más semillas.');
 
 -- Inserciones para gestiona.temporada
-INSERT INTO gestiona.temporada (id, nombre_temporada, duracion, fecha_inicio, fecha_fin, id_cultivo, novedades_id) 
+INSERT INTO gestiona.temporada (id, nombre, duracion, fecha_inicio, fecha_fin, id_cultivo, novedades_id) 
 VALUES 
 ('d2345678-8def-1234-5678-abc456789abc', 'Temporada Maíz 2024', 120, '2024-01-01', '2024-05-01', 'c1234567-9abc-1234-5678-abc456789def', 'b1234567-8abc-1234-5678-abc456789def');
 
-INSERT INTO gestiona.temporada (id, nombre_temporada, duracion, fecha_inicio, fecha_fin, id_cultivo)
+INSERT INTO gestiona.temporada (id, nombre, duracion, fecha_inicio, fecha_fin, id_cultivo)
 VALUES (uuid_generate_v4(), 'Primera Temporada', 225, '2022-05-21', '2022-12-31', '328ef414-c70e-4266-a92b-7137219302eb'),
 		(uuid_generate_v4(), 'Segunda Temporada', 365, '2023-01-01', '2023-12-31', '328ef414-c70e-4266-a92b-7137219302eb'),
 		(uuid_generate_v4(), 'Tercera Temporada', 365, '2024-01-01', '2024-12-31', '328ef414-c70e-4266-a92b-7137219302eb');
@@ -257,7 +258,7 @@ VALUES
 ('a5678901-8abc-1234-5678-abc456789abc', 'd1c3d2b7-5555-48fa-b6a1-abc123def456');
 
 -- Inserciones para gestiona.insumo
-INSERT INTO gestiona.insumo (id, nombre_insumo, cantidad_disponible, fecha_ingreso, precio_insumo, id_inventario, id_categoria, id_unidad_medida) 
+INSERT INTO gestiona.insumo (id, nombre, cantidad_disponible, fecha_ingreso, precio, id_inventario, id_categoria, id_unidad_medida) 
 VALUES 
 ('b6789012-8def-1234-5678-abc456789abc', 'Semillas de Maíz', 200, '2024-01-01', 50, 'a5678901-8abc-1234-5678-abc456789abc', 'e3456789-8abc-1234-5678-abc456789def', 'e2345678-9def-1234-5678-abc456789012');
 
@@ -283,9 +284,9 @@ VALUES
 ('155280f4-7ae0-4bc8-b9da-ef4327929a5f', '418b748c-e511-46b2-8f6c-6e9551093cf5','a698c1c7-3d66-46f1-900a-3dcc5358bf7a', 'e9012345-8abc-1234-5678-abc456789abc' );
 
 -- Inserciones para gestiona.producto
-INSERT INTO gestiona.producto (id, cantidad_recolectada, fecha_recoleccion, id_temporada, id_unidad_medida) 
+INSERT INTO gestiona.producto (id, nombre, cantidad_recolectada, fecha_recoleccion, id_temporada, id_unidad_medida) 
 VALUES 
-('a1234567-8abc-1234-5678-abc456789def', 500.0, '2024-05-01', 'd2345678-8def-1234-5678-abc456789abc', 'e2345678-9def-1234-5678-abc456789012');
+('a1234567-8abc-1234-5678-abc456789def', 'productName', 500.0, '2024-05-01', 'd2345678-8def-1234-5678-abc456789abc', 'e2345678-9def-1234-5678-abc456789012');
 
 -- Inserciones para gestiona.venta
 INSERT INTO gestiona.venta (id, cantidad_vendida, precio_total, fecha_venta, id_temporada, observaciones, id_unidad_medida, precio_unitario) 

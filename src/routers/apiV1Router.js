@@ -34,7 +34,7 @@ apiV1Router.use(APIV1, userHasRouters);
 apiV1Router.use(APIV1, projectRouters);
 apiV1Router.use(APIV1, unitMeasurementRouters);
 apiV1Router.use(APIV1, categoryRouters);
-apiV1Router.use(APIV1, roleRouters)
+apiV1Router.use(APIV1, roleRouters);
 apiV1Router.use(APIV1, productRouter);
 
 export default apiV1Router;
