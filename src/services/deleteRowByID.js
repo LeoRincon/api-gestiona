@@ -8,7 +8,8 @@ export async function deleteRowByID(id, table) {
 
  try {
   const activityManagementDeleted = await pgpConnection.one(
-   `DELETE FROM ${table} WHERE id='${ID}' RETURNING*`
+   `DELETE FROM ${table} WHERE id = $1 RETURNING*`,
+   [ID]
   );
 
   return activityManagementDeleted;

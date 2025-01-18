@@ -7,9 +7,9 @@ export async function getRowByID(id, table) {
  const ID = id.toString();
 
  try {
-  const row = await pgpConnection.one(
-   `select * from ${table} WHERE id = '${ID}'`
-  );
+  const row = await pgpConnection.one(`select * from ${table} WHERE id = $1`, [
+   ID,
+  ]);
   return row;
  } catch (error) {
   throw new Error('Fail on getRowByID');
