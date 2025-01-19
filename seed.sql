@@ -8,7 +8,8 @@ CREATE SCHEMA IF NOT EXISTS gestiona;
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS gestiona.proyecto (
     id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
-    nombre VARCHAR(100) NOT NULL UNIQUE
+    nombre VARCHAR(100) NOT NULL UNIQUE,
+    descripcion VARCHAR(255) NOT NULL
 );
 
 -- -----------------------------------------------------
@@ -203,9 +204,9 @@ CREATE TABLE IF NOT EXISTS gestiona.venta (
 
 
 -- Inserciones para gestiona.proyecto
-INSERT INTO gestiona.proyecto (id, nombre) 
-VALUES ('d1c3d2b7-5555-48fa-b6a1-abc123def456', 'Proyecto Sabana'),
-('a698c1c7-3d66-46f1-900a-3dcc5358bf7a', 'Proyecto Bosque');
+INSERT INTO gestiona.proyecto (id, nombre, descripcion) 
+VALUES ('d1c3d2b7-5555-48fa-b6a1-abc123def456', 'Proyecto Sabana', 'descripcion del proyecto'),
+('a698c1c7-3d66-46f1-900a-3dcc5358bf7a', 'Proyecto Bosque', 'descripcion del proyecto');
 
 -- Inserciones para gestiona.unidad_medida
 INSERT INTO gestiona.unidad_medida (id, nombre, descripcion) 
