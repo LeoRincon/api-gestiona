@@ -42,7 +42,7 @@ export async function getServiceUsersByEmail(email) {
 }
 
 // Crear un nuevo usuario
-export async function createUser(body) {
+export async function postServiceUsers(body) {
   if (!body) return { error: 'The body data is required.' };
 
   const { nombre, email, password } = body;
@@ -51,10 +51,12 @@ export async function createUser(body) {
     return { error: 'Password is required.' };
   }
 
+  const passwordHash = await bcrypt.hash(password, 10)
+
   try {
     const datos = await pgpConnection.one(
       'INSERT INTO gestiona.usuario (nombre, email, password_hash, fecha_registro) VALUES ($1, $2, $3, NOW()) RETURNING *',
-      [nombre, email, password] // Se utiliza directamente la contraseña sin cifrar
+      [nombre, email, passwordHash]
     );
     return datos;
   } catch (error) {
@@ -62,18 +64,6 @@ export async function createUser(body) {
     return { error: 'Error creating user.' };
   }
 }
-
-export async function postServiceUsers(body) {
-  const {nombre, email, password_hash, fecha_registro} = body
-  const datos = await pgpConnection.one(
-    'INSERT INTO gestiona.usuario (nombre, email, password_hash, fecha_registro) VALUES ($1, $2, $3, $4) RETURNING *',
-    [nombre, email, password_hash, fecha_registro]
-  );
-  return datos;
-}
-
-
-
 
 // Actualizar un usuario existente
 export async function updateServiceUsers(id, body) {
