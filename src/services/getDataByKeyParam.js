@@ -7,7 +7,7 @@ export async function getDataByKeyParam(key, value, table, returnValue) {
 
  try {
   const row = await pgpConnection.one(
-   `SELECT * FROM ${table} WHERE ${key} = $1`,
+   `SELECT * FROM gestiona.${table} WHERE ${key} = $1`,
    [value]
   );
   return row[returnValue];
