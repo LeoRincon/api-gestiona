@@ -4,6 +4,7 @@ export const TABLE = {
  category: 'gestiona.categoria',
  crop: 'gestiona.cultivo',
  expenses: 'gestiona.gasto',
+ inventory: 'gestiona.inventario',
  news: 'gestiona.novedades',
  product: 'gestiona.producto',
  project: 'gestiona.proyecto',
