@@ -16,6 +16,7 @@ import categoryRouters from './category.js';
 import roleRouters from './roles.js';
 import productRouter from './product.js';
 import queryRouter from './queryRouter.js'
+import inventoryRouter from './inventory.js';
 
 const apiV1Router = Router();
 
@@ -38,5 +39,6 @@ apiV1Router.use(APIV1, categoryRouters);
 apiV1Router.use(APIV1, roleRouters);
 apiV1Router.use(APIV1, productRouter);
 apiV1Router.use(APIV1, queryRouter);
+apiV1Router.use(APIV1, inventoryRouter);
 
 export default apiV1Router;
