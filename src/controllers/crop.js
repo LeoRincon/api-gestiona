@@ -4,6 +4,7 @@ import { getRowByID } from '../services/getRowByID.js';
 import { createDataRow } from '../services/createDataRow.js';
 import { updatedDataRowByID } from '../services/updatedDataRowByID.js';
 import { deleteRowByID } from '../services/deleteRowByID.js';
+import { getRowsByKey } from '../services/getDataByKeyParam.js';
 
 const table = TABLE.crop;
 //GET ALL
@@ -25,6 +26,17 @@ export async function getCrop(req, res) {
   const crop = await getRowByID(id, table);
   if (crop.name == 'error') throw Error(crop);
   res.status(200).json({ success: true, crop: crop });
+ } catch (error) {
+  console.log('GET controller Error' + error);
+  res.status(404).send('Error fetching information.');
+ }
+}
+export async function getCropByProjectId(req, res) {
+ try {
+  const { id } = req.params;
+  const crops = await getRowsByKey('proyecto_id', id, table);
+  if (crops.name == 'error') throw Error(crops);
+  res.status(200).json({ success: true, crops });
  } catch (error) {
   console.log('GET controller Error' + error);
   res.status(404).send('Error fetching information.');
