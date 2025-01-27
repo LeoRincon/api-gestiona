@@ -18,6 +18,7 @@ CREATE TABLE IF NOT EXISTS gestiona.proyecto (
 CREATE TABLE IF NOT EXISTS gestiona.unidad_medida (
     id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
     nombre VARCHAR(50) NOT NULL UNIQUE,
+    unidad VARCHAR(20) NOT NULL UNIQUE
     descripcion VARCHAR(255) NOT NULL
 );
 
@@ -209,10 +210,11 @@ VALUES ('d1c3d2b7-5555-48fa-b6a1-abc123def456', 'Proyecto Sabana', 'descripcion 
 ('a698c1c7-3d66-46f1-900a-3dcc5358bf7a', 'Proyecto Bosque', 'descripcion del proyecto');
 
 -- Inserciones para gestiona.unidad_medida
-INSERT INTO gestiona.unidad_medida (id, nombre, descripcion) 
+INSERT INTO gestiona.unidad_medida (id, nombre, unidad, descripcion) 
 VALUES 
-('f1234567-8abc-1234-5678-defabc456789', 'mt2', 'Unidad de medida para terrenos'),
-('e2345678-9def-1234-5678-abc456789012', 'cm3', 'Unidad de medida para liquidos');
+('f1234567-8abc-1234-5678-defabc456789', 'Metro cuadrado', 'm2', 'Unidad de medida para terrenos'),
+('a8457b6c-e398-4dea-b32e-de0fcefa5cc3', 'hectárea', 'ha', 'Unidad de medida de área que equivale a 10.000 m2'),
+('e2345678-9def-1234-5678-abc456789012', 'Centímetro Cúbico', 'cm3', 'Unidad de medida para liquidos');
 
 -- Inserciones para gestiona.cultivo
 INSERT INTO gestiona.cultivo (id, nombre, tipo_siembra, fecha_inicio, area_terreno, proyecto_id, id_unidad_medida) 
