@@ -5,7 +5,7 @@ import { createDataRow } from '../services/createDataRow.js';
 import { updatedDataRowByID } from '../services/updatedDataRowByID.js';
 import { deleteRowByID } from '../services/deleteRowByID.js';
 
-const table = TABLE.expenses;
+const table = TABLE.news;
 export async function getAllNews(req, res) {
  const response = await getAllRows(table);
  return res.send(response);
