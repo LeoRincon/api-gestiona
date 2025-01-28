@@ -3,6 +3,6 @@ import {getDataByParam} from "../controllers/queryController.js"
 
 const queryRouter = Router();
 
-queryRouter.get('/query', getDataByParam);
+queryRouter.post('/query', getDataByParam);
 
 export default queryRouter
