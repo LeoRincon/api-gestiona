@@ -18,7 +18,7 @@ CREATE TABLE IF NOT EXISTS gestiona.proyecto (
 CREATE TABLE IF NOT EXISTS gestiona.unidad_medida (
     id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
     nombre VARCHAR(50) NOT NULL UNIQUE,
-    unidad VARCHAR(20) NOT NULL UNIQUE
+    unidad VARCHAR(20) NOT NULL UNIQUE,
     descripcion VARCHAR(255) NOT NULL
 );
 
