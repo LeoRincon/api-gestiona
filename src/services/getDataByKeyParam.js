@@ -16,3 +16,21 @@ export async function getDataByKeyParam(key, value, table, returnValue) {
   throw new Error('Fail on getRowByID');
  }
 }
+
+export async function getRowsByKey(key, value, table) {
+ if (!key || typeof key !== 'string') {
+  throw new Error('Id is required');
+ }
+
+ try {
+  const row = await pgpConnection.manyOrNone(
+   `SELECT * FROM ${table} WHERE ${key} = $1`,
+   [value]
+  );
+
+  return row;
+ } catch (error) {
+  console.log('🇨🇴🚨 => getIDbyFK => error:', error);
+  throw new Error('Fail on getRowByID');
+ }
+}
