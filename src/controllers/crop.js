@@ -64,7 +64,7 @@ export async function getCropByProjectId(req, res) {
         return crop;
       })
     );
-    
+
     res.status(200).json({ success: true, crops });
   } catch (error) {
     console.log("GET controller Error" + error);
@@ -78,6 +78,12 @@ export async function postCrop(req, res) {
     const data = req.body;
     const crop = await createDataRow(data, table);
     if (crop.name == "error") throw Error(crop);
+    const unit = await getRowByID(crop.id_unidad_medida, unitTable);
+    crop["unit"] = {
+      nombre: unit.nombre,
+      unidad: unit.unidad,
+      descripcion: unit.descripcion,
+    };
     res.status(200).json({ success: true, crop: crop });
   } catch (error) {
     console.log("POST controller Error" + error);
