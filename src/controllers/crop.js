@@ -65,7 +65,7 @@ export async function getCropByProjectId(req, res) {
       })
     );
 
-    res.status(200).json({ success: true, crops });
+    res.status(200).json({ success: true, crops: newCrops });
   } catch (error) {
     console.log("GET controller Error" + error);
     res.status(404).send("Error fetching information.");
@@ -99,6 +99,12 @@ export async function putCrop(req, res) {
     const crop = await updatedDataRowByID(id, data, table);
     if (crop.name == "error" || crop.name == "QueryResultError")
       throw Error(crop);
+    const unit = await getRowByID(crop.id_unidad_medida, unitTable);
+    crop["unit"] = {
+      nombre: unit.nombre,
+      unidad: unit.unidad,
+      descripcion: unit.descripcion,
+    };
     res.status(200).json({ success: true, crop: crop });
   } catch (error) {
     console.log("PUT controller Error:" + error);
