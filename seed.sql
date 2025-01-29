@@ -90,6 +90,8 @@ CREATE TABLE IF NOT EXISTS gestiona.actividad (
     nombre VARCHAR(100) NOT NULL,
     descripcion TEXT NOT NULL,
     id_categoria UUID NOT NULL,
+    id_temporada UUID NOT NULL,
+    FOREIGN KEY (id_temporada) REFERENCES gestiona.temporada (id) ON DELETE NO ACTION ON UPDATE NO ACTION,
     FOREIGN KEY (id_categoria) REFERENCES gestiona.categoria (id) ON DELETE NO ACTION ON UPDATE NO ACTION
 );
 
@@ -201,97 +203,59 @@ CREATE TABLE IF NOT EXISTS gestiona.venta (
 );
 
 
--- INSERT TO DATA BASE GESTIONA
+-- Inserts para la tabla `proyecto`
+INSERT INTO gestiona.proyecto (nombre, descripcion) VALUES ('Proyecto AgroTech', 'Proyecto de agricultura sostenible.');
 
+-- Inserts para la tabla `unidad_medida`
+INSERT INTO gestiona.unidad_medida (nombre, unidad, descripcion) VALUES ('Kilogramos', 'kg', 'Unidad de medida para peso.');
 
--- Inserciones para gestiona.proyecto
-INSERT INTO gestiona.proyecto (id, nombre, descripcion) 
-VALUES ('d1c3d2b7-5555-48fa-b6a1-abc123def456', 'Proyecto Sabana', 'descripcion del proyecto'),
-('a698c1c7-3d66-46f1-900a-3dcc5358bf7a', 'Proyecto Bosque', 'descripcion del proyecto');
+-- Inserts para la tabla `cultivo`
+INSERT INTO gestiona.cultivo (nombre, tipo_siembra, fecha_inicio, area_terreno, proyecto_id, id_unidad_medida)
+VALUES ('Maíz', 'Siembra directa', '2024-01-15', 10.5, (SELECT id FROM gestiona.proyecto LIMIT 1), (SELECT id FROM gestiona.unidad_medida LIMIT 1));
 
--- Inserciones para gestiona.unidad_medida
-INSERT INTO gestiona.unidad_medida (id, nombre, unidad, descripcion) 
-VALUES 
-('f1234567-8abc-1234-5678-defabc456789', 'Metro cuadrado', 'm2', 'Unidad de medida para terrenos'),
-('a8457b6c-e398-4dea-b32e-de0fcefa5cc3', 'hectárea', 'ha', 'Unidad de medida de área que equivale a 10.000 m2'),
-('e2345678-9def-1234-5678-abc456789012', 'Centímetro Cúbico', 'cm3', 'Unidad de medida para liquidos');
+-- Inserts para la tabla `usuario`
+INSERT INTO gestiona.usuario (nombre, email, password_hash) VALUES ('Juan Pérez', 'juan@example.com', 'hashedpassword123');
 
--- Inserciones para gestiona.cultivo
-INSERT INTO gestiona.cultivo (id, nombre, tipo_siembra, fecha_inicio, area_terreno, proyecto_id, id_unidad_medida) 
-VALUES 
-('c1234567-9abc-1234-5678-abc456789def', 'Cultivo de Maíz', 'Maiz', '2024-01-01', 1500, 'd1c3d2b7-5555-48fa-b6a1-abc123def456', 'f1234567-8abc-1234-5678-defabc456789');
+-- Inserts para la tabla `novedades`
+INSERT INTO gestiona.novedades (nombre, descripcion) VALUES ('Plaga detectada', 'Se detectó una plaga en el cultivo de maíz.');
 
-INSERT INTO gestiona.cultivo (id, nombre, tipo_siembra, fecha_inicio, area_terreno, proyecto_id, id_unidad_medida)
-VALUES ('328ef414-c70e-4266-a92b-7137219302eb','Cafetal 1', 'Café', '2022-05-21', 1200, 'd1c3d2b7-5555-48fa-b6a1-abc123def456', 'f1234567-8abc-1234-5678-defabc456789');
+-- Inserts para la tabla `temporada`
+INSERT INTO gestiona.temporada (nombre, duracion, fecha_inicio, fecha_fin, id_cultivo, novedades_id)
+VALUES ('Temporada Primavera', 90, '2024-03-01', '2024-06-01', (SELECT id FROM gestiona.cultivo LIMIT 1), (SELECT id FROM gestiona.novedades LIMIT 1));
 
--- Inserciones para gestiona.usuario
-INSERT INTO gestiona.usuario (id, nombre, email, password_hash, fecha_registro) 
-VALUES 
-('a1234567-8def-1234-5678-abc123def456', 'Juan Pérez', 'juan.perez@example.com', 'hashed_password_example', '2024-11-18 10:00:00'),
-('418b748c-e511-46b2-8f6c-6e9551093cf5', 'John Doe', 'john.doe@email.com', '2b$10$joo8ZQyEoH77CD1RyidIE.kN8tPDrbZAQyAyvcUzfpiZA519SvKWm', '2024-12-31 18:52:03.426777');
+-- Inserts para la tabla `categoria`
+INSERT INTO gestiona.categoria (nombre, descripcion) VALUES ('Fertilizantes', 'Productos para mejorar la calidad del suelo.');
 
--- Inserciones para gestiona.novedades
-INSERT INTO gestiona.novedades (id, fecha, nombre, descripcion) 
-VALUES 
-('b1234567-8abc-1234-5678-abc456789def', '2024-11-18 10:00:00', 'Gasto adicional', 'El cultivo tuvo problemas y se agrego más semillas.');
+-- Inserts para la tabla `actividad`
+INSERT INTO gestiona.actividad (nombre, descripcion, id_categoria, id_temporada)
+VALUES ('Fertilización de suelo', 'Aplicación de fertilizantes orgánicos.', (SELECT id FROM gestiona.categoria LIMIT 1), (SELECT id FROM gestiona.temporada LIMIT 1));
 
--- Inserciones para gestiona.temporada
-INSERT INTO gestiona.temporada (id, nombre, duracion, fecha_inicio, fecha_fin, id_cultivo, novedades_id) 
-VALUES 
-('d2345678-8def-1234-5678-abc456789abc', 'Temporada Maíz 2024', 120, '2024-01-01', '2024-05-01', 'c1234567-9abc-1234-5678-abc456789def', 'b1234567-8abc-1234-5678-abc456789def');
+-- Inserts para la tabla `inventario`
+INSERT INTO gestiona.inventario (id_proyecto) VALUES ((SELECT id FROM gestiona.proyecto LIMIT 1));
 
-INSERT INTO gestiona.temporada (id, nombre, duracion, fecha_inicio, fecha_fin, id_cultivo)
-VALUES (uuid_generate_v4(), 'Primera Temporada', 225, '2022-05-21', '2022-12-31', '328ef414-c70e-4266-a92b-7137219302eb'),
-		(uuid_generate_v4(), 'Segunda Temporada', 365, '2023-01-01', '2023-12-31', '328ef414-c70e-4266-a92b-7137219302eb'),
-		(uuid_generate_v4(), 'Tercera Temporada', 365, '2024-01-01', '2024-12-31', '328ef414-c70e-4266-a92b-7137219302eb');
+-- Inserts para la tabla `insumo`
+INSERT INTO gestiona.insumo (nombre, cantidad_disponible, fecha_ingreso, precio, id_inventario, id_categoria, id_unidad_medida)
+VALUES ('Fertilizante Orgánico', 50, '2024-01-10', 200.0, (SELECT id FROM gestiona.inventario LIMIT 1), (SELECT id FROM gestiona.categoria LIMIT 1), (SELECT id FROM gestiona.unidad_medida LIMIT 1));
 
--- Inserciones para gestiona.categoria
-INSERT INTO gestiona.categoria (id, nombre, descripcion) 
-VALUES 
-('e3456789-8abc-1234-5678-abc456789def', 'Semillas', 'Material vegetal para siembra');
+-- Inserts para la tabla `gasto`
+INSERT INTO gestiona.gasto (id_temporada, id_insumo, cantidad_usada, precio_total, id_unidad_medida)
+VALUES ((SELECT id FROM gestiona.temporada LIMIT 1), (SELECT id FROM gestiona.insumo LIMIT 1), 10, 40.0, (SELECT id FROM gestiona.unidad_medida LIMIT 1));
 
--- Inserciones para gestiona.actividad
-INSERT INTO gestiona.actividad (id, nombre, descripcion, id_categoria) 
-VALUES 
-('f4567890-8def-1234-5678-abc456789abc', 'Preparación del Terreno', 'Labores iniciales para la siembra', 'e3456789-8abc-1234-5678-abc456789def');
+-- Inserts para la tabla `gestion_actividades`
+INSERT INTO gestiona.gestion_actividades (id_actividad, id_temporada, costo, gasto_insumo_id)
+VALUES ((SELECT id FROM gestiona.actividad LIMIT 1), (SELECT id FROM gestiona.temporada LIMIT 1), 500.0, (SELECT id FROM gestiona.gasto LIMIT 1));
 
--- Inserciones para gestiona.inventario
-INSERT INTO gestiona.inventario (id, id_proyecto) 
-VALUES 
-('a5678901-8abc-1234-5678-abc456789abc', 'd1c3d2b7-5555-48fa-b6a1-abc123def456');
+-- Inserts para la tabla `rol`
+INSERT INTO gestiona.rol (nombre, descripcion) VALUES ('Administrador', 'Gestiona el sistema y los proyectos.');
 
--- Inserciones para gestiona.insumo
-INSERT INTO gestiona.insumo (id, nombre, cantidad_disponible, fecha_ingreso, precio, id_inventario, id_categoria, id_unidad_medida) 
-VALUES 
-('b6789012-8def-1234-5678-abc456789abc', 'Semillas de Maíz', 200, '2024-01-01', 50, 'a5678901-8abc-1234-5678-abc456789abc', 'e3456789-8abc-1234-5678-abc456789def', 'e2345678-9def-1234-5678-abc456789012');
+-- Inserts para la tabla `usuario_has`
+INSERT INTO gestiona.usuario_has (usuario_id, proyecto_id, id_rol)
+VALUES ((SELECT id FROM gestiona.usuario LIMIT 1), (SELECT id FROM gestiona.proyecto LIMIT 1), (SELECT id FROM gestiona.rol LIMIT 1));
 
--- Inserciones para gestiona.gasto
-INSERT INTO gestiona.gasto (id, id_temporada, id_insumo, cantidad_usada, precio_total, id_unidad_medida) 
-VALUES 
-('c7890123-8abc-1234-5678-abc456789abc', 'd2345678-8def-1234-5678-abc456789abc', 'b6789012-8def-1234-5678-abc456789abc', 20, 1000, 'e2345678-9def-1234-5678-abc456789012');
+-- Inserts para la tabla `producto`
+INSERT INTO gestiona.producto (nombre, cantidad_recolectada, fecha_recoleccion, id_temporada, id_unidad_medida)
+VALUES ('Maíz amarillo', 1500, '2024-06-15', (SELECT id FROM gestiona.temporada LIMIT 1), (SELECT id FROM gestiona.unidad_medida LIMIT 1));
 
--- Inserciones para gestiona.gestion_actividades
-INSERT INTO gestiona.gestion_actividades (id, id_actividad, id_temporada, costo, gasto_insumo_id) 
-VALUES 
-('d8901234-8def-1234-5678-abc456789abc', 'f4567890-8def-1234-5678-abc456789abc', 'd2345678-8def-1234-5678-abc456789abc', 200.0, 'c7890123-8abc-1234-5678-abc456789abc');
-
--- Inserciones para gestiona.rol
-INSERT INTO gestiona.rol (id, nombre, descripcion) 
-VALUES 
-('e9012345-8abc-1234-5678-abc456789abc', 'Administrador', 'Gestiona el proyecto'), ('e0ed538f-0c33-4cbe-835c-fb2366f3f01d','Delegado', 'Gestiona el proyecto con acceso limitado');
-
--- Inserciones para gestiona.usuario_has
-INSERT INTO gestiona.usuario_has (id, usuario_id, proyecto_id, id_rol) 
-VALUES 
-('f0123456-8def-1234-5678-abc456789abc', 'a1234567-8def-1234-5678-abc123def456', 'd1c3d2b7-5555-48fa-b6a1-abc123def456', 'e9012345-8abc-1234-5678-abc456789abc'),
-('155280f4-7ae0-4bc8-b9da-ef4327929a5f', '418b748c-e511-46b2-8f6c-6e9551093cf5','a698c1c7-3d66-46f1-900a-3dcc5358bf7a', 'e9012345-8abc-1234-5678-abc456789abc' );
-
--- Inserciones para gestiona.producto
-INSERT INTO gestiona.producto (id, nombre, cantidad_recolectada, fecha_recoleccion, id_temporada, id_unidad_medida) 
-VALUES 
-('a1234567-8abc-1234-5678-abc456789def', 'productName', 500.0, '2024-05-01', 'd2345678-8def-1234-5678-abc456789abc', 'e2345678-9def-1234-5678-abc456789012');
-
--- Inserciones para gestiona.venta
-INSERT INTO gestiona.venta (id, cantidad_vendida, precio_total, fecha_venta, id_temporada, observaciones, id_unidad_medida, precio_unitario) 
-VALUES 
-('b2345678-8def-1234-5678-abc456789abc', 400.0, 2000.0, '2024-06-01', 'd2345678-8def-1234-5678-abc456789abc', 'Venta exitosa', 'e2345678-9def-1234-5678-abc456789012', 100);
+-- Inserts para la tabla `venta`
+INSERT INTO gestiona.venta (cantidad_vendida, precio_total, fecha_venta, id_temporada, observaciones, id_unidad_medida, precio_unitario)
+VALUES (500, 2500.0, '2024-07-01', (SELECT id FROM gestiona.temporada LIMIT 1), 'Venta mayorista.', (SELECT id FROM gestiona.unidad_medida LIMIT 1), 5.0);

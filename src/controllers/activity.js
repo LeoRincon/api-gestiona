@@ -4,12 +4,25 @@ import { getRowByID } from '../services/getRowByID.js';
 import { createDataRow } from '../services/createDataRow.js';
 import { updatedDataRowByID } from '../services/updatedDataRowByID.js';
 import { deleteRowByID } from '../services/deleteRowByID.js';
+import { getRowsByKey } from '../services/getDataByKeyParam.js';
 
 const table = TABLE.activity;
 //GET
 export async function getActivities(req, res) {
  try {
   const activities = await getAllRows(table);
+  if (activities.name == 'error') throw Error(activity);
+  res.status(200).json({ success: true, activities: activities });
+ } catch (error) {
+  console.log('GET controller Error' + error);
+  res.status(404).send('Error fetching information.');
+ }
+}
+
+export async function getActivitiesByCropId(req, res) {
+ const { id } = req.params;
+ try {
+  const activities = await getRowsByKey('id_temporada', id, table);
   if (activities.name == 'error') throw Error(activity);
   res.status(200).json({ success: true, activities: activities });
  } catch (error) {
