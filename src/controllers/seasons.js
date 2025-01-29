@@ -4,6 +4,7 @@ import { getRowByID } from '../services/getRowByID.js';
 import { createDataRow } from '../services/createDataRow.js';
 import { updatedDataRowByID } from '../services/updatedDataRowByID.js';
 import { deleteRowByID } from '../services/deleteRowByID.js';
+import { getRowsByKey } from '../services/getDataByKeyParam.js';
 
 const table = TABLE.season;
 export async function getAll(_req, res) {
@@ -22,7 +23,7 @@ export async function getAllByIdCrop(req, res) {
  if (!id) return res.status(400).json({ error: 'The crop id is required.' });
 
  try {
-  const seasons = await getRowByID(id, table);
+  const seasons = await getRowsByKey("id_cultivo", id, table);
   if (!seasons) return res.status(404).json({ error: seasons.message });
   res.status(200).json(seasons);
  } catch (error) {
