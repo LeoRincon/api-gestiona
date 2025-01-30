@@ -4,6 +4,7 @@ import { getRowByID } from '../services/getRowByID.js';
 import { createDataRow } from '../services/createDataRow.js';
 import { updatedDataRowByID } from '../services/updatedDataRowByID.js';
 import { deleteRowByID } from '../services/deleteRowByID.js';
+import { getRowsByKey } from '../services/getDataByKeyParam.js';
 
 const table = TABLE.supplies;
 
@@ -156,4 +157,17 @@ export async function deleteSupplyController(req, res) {
    error: error.message,
   });
  }
+}
+
+//GET ALL SUPPLIES BY ID INVENTORY 
+export async function getAllSuppliesByInventoryId(req, res) {
+  try {
+    const { id } = req.params;
+    const supplies = await getRowsByKey("id_inventario", id, table);
+    if (supplies.name == "error") throw new Error(supplies);
+    res.status(200).json({ success: true, supplies: supplies });
+  } catch (error) {
+    console.log("GET controller Error" + error);
+    res.status(404).send("Error fetching information.");
+  }
 }
