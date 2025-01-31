@@ -5,6 +5,7 @@ import { getRowByID } from '../services/getRowByID.js';
 import { createDataRow } from '../services/createDataRow.js';
 import { deleteRowByID } from '../services/deleteRowByID.js';
 import { updatedDataRowByID } from '../services/updatedDataRowByID.js';
+import { getRowsByKey } from '../services/getDataByKeyParam.js';
 
 const table = TABLE.activitiesManagements;
 export async function getActivitiesManagement(_req, res) {
@@ -65,4 +66,17 @@ export async function updatedActivityManagement(req, res) {
    message: 'validated if is correct the data',
   });
  }
+}
+
+export async function getActivitiesManagementBySeasonID(req,res) {
+  const {id} = req.params
+  
+  try {
+    const activitiesManagements = await getRowsByKey("id_temporada", id, table)
+    return res.status(200).json(activitiesManagements)
+  } catch (error) {
+    return res.status(404).json({
+      message: 'Not possible get the Activities Managements',
+     });
+  }
 }
