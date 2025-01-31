@@ -10,5 +10,6 @@ suppliesRouter.get('/supplies/:id', validateID, suppliesController.getSupplyCont
 suppliesRouter.post('/supplies', verifySupplies, suppliesController.postSupplyController);
 suppliesRouter.put('/supplies/:id', validateID, verifySupplies, suppliesController.putSupplyController);
 suppliesRouter.delete('/supplies/:id', validateID, suppliesController.deleteSupplyController);
+suppliesRouter.get('/inventory/:id/supplies', validateID, suppliesController.getAllSuppliesByInventoryId );
 
 export default suppliesRouter;
