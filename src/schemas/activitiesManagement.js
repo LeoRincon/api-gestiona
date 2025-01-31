@@ -29,7 +29,7 @@ const schema = z.object({
   .nonempty({ message: 'the name of the input cost id  is required' })
   .uuid({
    message: 'the name of the input cost id  must be a valid UUID',
-  }),
+  }).optional(),
 });
 
 export function validateActivityManagement(input) {
