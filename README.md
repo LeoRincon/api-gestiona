@@ -13,6 +13,10 @@ Instalar [WSL](https://learn.microsoft.com/en-us/windows/wsl/install) *opcional*
 ```sh
 npm run docker
 ```
+- Popular la base de datos
+```sh
+npm run seed
+```
 - Levantar el proyecto en modo desarrollo 
 ```sh
 npm run dev
