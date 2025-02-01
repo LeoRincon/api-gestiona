@@ -98,8 +98,7 @@ CREATE TABLE IF NOT EXISTS gestiona.actividad (
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS gestiona.inventario (
     id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
-    id_proyecto UUID NOT NULL,
-    FOREIGN KEY (id_proyecto) REFERENCES gestiona.proyecto (id) ON DELETE NO ACTION ON UPDATE NO ACTION
+    id_proyecto UUID NOT NULL
 );
 
 -- -----------------------------------------------------
@@ -280,7 +279,7 @@ VALUES
 -- Inserciones para gestiona.gestion_actividades
 INSERT INTO gestiona.gestion_actividades (id, id_actividad, id_temporada, costo, gasto_insumo_id, fecha) 
 VALUES 
-('d8901234-8def-1234-5678-abc456789abc', 'f4567890-8def-1234-5678-abc456789abc', 'd2345678-8def-1234-5678-abc456789abc', 200.0, 'c7890123-8abc-1234-5678-abc456789abc', '2025-01-01');
+('d8901234-8def-1234-5678-abc456789abc', (SELECT id From gestiona.actividad LIMIT 1), 'd2345678-8def-1234-5678-abc456789abc', 200.0, 'c7890123-8abc-1234-5678-abc456789abc', '2025-01-01');
 
 -- Inserciones para gestiona.rol
 INSERT INTO gestiona.rol (id, nombre, descripcion) 
