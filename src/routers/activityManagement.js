@@ -5,6 +5,7 @@ import {
  createActivitiesManagement,
  deleteActivityManagement,
  updatedActivityManagement,
+ getActivitiesManagementBySeasonID
 } from '../controllers/activityManagement.js';
 import { verifyActivityManagement } from '../middlewares/validateActivityManagement.js';
 import validateID from '../middlewares/validateID.js';
@@ -12,6 +13,7 @@ import validateID from '../middlewares/validateID.js';
 const activityRouters = Router();
 
 activityRouters.get('/activities-management', getActivitiesManagement);
+activityRouters.get('/seasons/:id/activities-management', getActivitiesManagementBySeasonID);
 activityRouters.get(
  '/activities-management/:id',
  validateID,

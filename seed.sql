@@ -142,7 +142,8 @@ CREATE TABLE IF NOT EXISTS gestiona.gestion_actividades (
     id_actividad UUID NOT NULL,
     id_temporada UUID NOT NULL,
     costo DOUBLE PRECISION NOT NULL,
-    gasto_insumo_id UUID NOT NULL,
+    fecha DATE NOT NULL DEFAULT NOW(),
+    gasto_insumo_id UUID,
     FOREIGN KEY (id_actividad) REFERENCES gestiona.actividad (id) ON DELETE NO ACTION ON UPDATE NO ACTION,
     FOREIGN KEY (id_temporada) REFERENCES gestiona.temporada (id) ON DELETE NO ACTION ON UPDATE NO ACTION,
     FOREIGN KEY (gasto_insumo_id) REFERENCES gestiona.gasto (id) ON DELETE NO ACTION ON UPDATE NO ACTION
@@ -248,12 +249,18 @@ VALUES (uuid_generate_v4(), 'Primera Temporada', 225, '2022-05-21', '2022-12-31'
 -- Inserciones para gestiona.categoria
 INSERT INTO gestiona.categoria (id, nombre, descripcion) 
 VALUES 
-('e3456789-8abc-1234-5678-abc456789def', 'Semillas', 'Material vegetal para siembra');
+('e3456789-8abc-1234-5678-abc456789def', 'Semillas', 'Material vegetal para siembra'),
+('5ab50abe-d60e-4e74-9b58-f8655b498bcb', 'Recolección', 'Acciones referentes con la recolección de productos' ),
+('c743de70-fc8d-4ea8-8037-db726c5b5ed1', 'Mantenimiento', 'Acciones referentes a mantener el cultivo'),
+('f3d817e7-5585-4d26-93c5-f05f88b46c8d', 'Siembra', 'Acciones referentes a la siembra de cultivos');
 
 -- Inserciones para gestiona.actividad
-INSERT INTO gestiona.actividad (id, nombre, descripcion, id_categoria) 
+INSERT INTO gestiona.actividad (nombre, descripcion, id_categoria) 
 VALUES 
-('f4567890-8def-1234-5678-abc456789abc', 'Preparación del Terreno', 'Labores iniciales para la siembra', 'e3456789-8abc-1234-5678-abc456789def');
+('Preparación del Terreno', 'Labores iniciales para la siembra', 'e3456789-8abc-1234-5678-abc456789def'),
+('Germinar semillas','Desarrollar plantulas mediante semillas','f3d817e7-5585-4d26-93c5-f05f88b46c8d'),
+('Fumigar','Aplicar productos mediante asperción','c743de70-fc8d-4ea8-8037-db726c5b5ed1'),
+('Desherbar','Remover malas hierbas','c743de70-fc8d-4ea8-8037-db726c5b5ed1');
 
 -- Inserciones para gestiona.inventario
 INSERT INTO gestiona.inventario (id, id_proyecto) 
@@ -271,9 +278,9 @@ VALUES
 ('c7890123-8abc-1234-5678-abc456789abc', 'd2345678-8def-1234-5678-abc456789abc', 'b6789012-8def-1234-5678-abc456789abc', 20, 1000, 'e2345678-9def-1234-5678-abc456789012');
 
 -- Inserciones para gestiona.gestion_actividades
-INSERT INTO gestiona.gestion_actividades (id, id_actividad, id_temporada, costo, gasto_insumo_id) 
+INSERT INTO gestiona.gestion_actividades (id, id_actividad, id_temporada, costo, gasto_insumo_id, fecha) 
 VALUES 
-('d8901234-8def-1234-5678-abc456789abc', 'f4567890-8def-1234-5678-abc456789abc', 'd2345678-8def-1234-5678-abc456789abc', 200.0, 'c7890123-8abc-1234-5678-abc456789abc');
+('d8901234-8def-1234-5678-abc456789abc', 'f4567890-8def-1234-5678-abc456789abc', 'd2345678-8def-1234-5678-abc456789abc', 200.0, 'c7890123-8abc-1234-5678-abc456789abc', '2025-01-01');
 
 -- Inserciones para gestiona.rol
 INSERT INTO gestiona.rol (id, nombre, descripcion) 
