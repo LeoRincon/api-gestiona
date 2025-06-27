@@ -10,6 +10,14 @@ Instalar [WSL](https://learn.microsoft.com/en-us/windows/wsl/install) *opcional*
 ```sh
 npm install
 ```
+- Crear un archivo `.env` en la raiz del proyecto y agregar las variables de entorno
+```sh
+PORT=3000
+DB_HOST=localhost
+DB_PORT=5432
+DB_USER=postgres
+DB_PASSWORD=postgres
+```
 
 ## `run project`
 
