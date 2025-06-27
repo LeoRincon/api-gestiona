@@ -6,6 +6,10 @@ Instalar [Table Plus](https://tableplus.com/) *opcional*
 Instalar [nodeJS](https://nodejs.org/en/) de la version 20 en adelante
 Instalar [WSL](https://learn.microsoft.com/en-us/windows/wsl/install) *opcional*
 
+## `install dependencies`
+```sh
+npm install
+```
 
 ## `run project`
 
